@@ -106,8 +106,8 @@ func ParsePMConf(
 	return ParseConf(kvString, ",", "=", implicitFirstKey)
 }
 
-// Convert a disk-size string to a GB float
-func DiskSizeGB(dcSize interface{}) float64 {
+// Convert a disk-size string to a GiB float
+func DiskSizeGiB(dcSize interface{}) float64 {
 	var diskSize float64
 	switch dcSize := dcSize.(type) {
 	case string:
@@ -139,8 +139,8 @@ func DiskSizeGB(dcSize interface{}) float64 {
 			case "KB":
 				diskSizeBytes = diskSize * 1000
 			}
-			// Convert bytes to SI prefixed size (GB)
-			diskSize = diskSizeBytes / 1000000
+			// Convert bytes to IEC prefixed size (GiB)
+			diskSize = diskSizeBytes / 1073741824
 		}
 	case float64:
 		diskSize = dcSize

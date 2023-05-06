@@ -795,7 +795,7 @@ func NewConfigQemuFromApi(vmr *VmRef, client *Client) (config *ConfigQemu, err e
 		// Convert to gigabytes if disk size was received in terabytes
 		matched := sizeInTerabytes.MatchString(diskConfMap["size"].(string))
 		if matched {
-			diskConfMap["size"] = fmt.Sprintf("%.0fG", DiskSizeGB(diskConfMap["size"]))
+			diskConfMap["size"] = fmt.Sprintf("%.0fG", DiskSizeGiB(diskConfMap["size"]))
 		}
 
 		// And device config to disks map.
@@ -1164,7 +1164,7 @@ func FormatDiskParam(disk QemuDevice) string {
 		diskConfParam = append(diskConfParam, volume.(string))
 		diskConfParam = append(diskConfParam, fmt.Sprintf("size=%v", disk["size"]))
 	} else {
-		volumeInit := fmt.Sprintf("%v:%v", disk["storage"], DiskSizeGB(disk["size"]))
+		volumeInit := fmt.Sprintf("%v:%v", disk["storage"], DiskSizeGiB(disk["size"]))
 		diskConfParam = append(diskConfParam, volumeInit)
 	}
 
