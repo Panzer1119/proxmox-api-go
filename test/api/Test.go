@@ -2,7 +2,7 @@ package api_test
 
 import (
 	"crypto/tls"
-	pxapi "github.com/Telmate/proxmox-api-go/proxmox"
+	pxapi "github.com/Panzer1119/proxmox-api-go/proxmox"
 )
 
 type Test struct {
@@ -13,7 +13,7 @@ type Test struct {
 	HttpHeaders string
 	RequireSSL  bool
 
-	_client     *pxapi.Client
+	_client *pxapi.Client
 }
 
 func (test *Test) CreateClient() (err error) {
@@ -39,7 +39,6 @@ func (test *Test) CreateClient() (err error) {
 func (test *Test) GetClient() (client *pxapi.Client) {
 	return test._client
 }
-
 
 func (test *Test) Login() (err error) {
 	if test._client == nil {

@@ -4,7 +4,6 @@ import (
 	"github.com/stretchr/testify/require"
 	"os"
 	"testing"
-	"github.com/Telmate/proxmox-api-go/test/api"
 )
 
 func Test_Root_Login_Correct_Password(t *testing.T) {
