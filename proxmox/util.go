@@ -118,16 +118,29 @@ func DiskSizeGB(dcSize interface{}) float64 {
 		diskSize, _ = strconv.ParseFloat(diskArray[1], 64)
 
 		if len(diskArray) >= 3 {
+			var diskSizeBytes float64
 			switch diskArray[2] {
-			case "T", "TB":
-				diskSize *= 1024
-			case "G", "GB":
-				//Nothing to do
-			case "M", "MB":
-				diskSize /= 1024
-			case "K", "KB":
-				diskSize /= 1048576
+			// Convert IEC prefixed sizes to bytes
+			case "T", "TiB":
+				diskSizeBytes = diskSize * 1099511627776
+			case "G", "GiB":
+				diskSizeBytes = diskSize * 1073741824
+			case "M", "MiB":
+				diskSizeBytes = diskSize * 1048576
+			case "K", "KiB":
+				diskSizeBytes = diskSize * 1024
+			// Convert SI prefixed sizes to bytes
+			case "TB":
+				diskSizeBytes = diskSize * 1000000000000
+			case "GB":
+				diskSizeBytes = diskSize * 1000000000
+			case "MB":
+				diskSizeBytes = diskSize * 1000000
+			case "KB":
+				diskSizeBytes = diskSize * 1000
 			}
+			// Convert bytes to SI prefixed size (GB)
+			diskSize = diskSizeBytes / 1000000
 		}
 	case float64:
 		diskSize = dcSize
